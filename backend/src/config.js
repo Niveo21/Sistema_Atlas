@@ -17,4 +17,10 @@ module.exports = {
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '15m',
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
   bcryptRounds: Number(process.env.BCRYPT_ROUNDS || 12),
+  // Carpeta interna de documentos. Debe estar fuera del código fuente.
+  storageDir: process.env.STORAGE_DIR || require('path').join(__dirname, '..', 'storage'),
+  // Tamaño máximo por archivo (MB). El ERS no lo define; decisión del equipo.
+  maxUploadBytes: Math.round(Number(process.env.MAX_UPLOAD_MB || 10) * 1024 * 1024),
+  // Vigencia máxima de enlaces para compartir, en horas.
+  maxEnlaceHoras: 168,
 };
