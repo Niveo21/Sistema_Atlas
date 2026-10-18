@@ -12,6 +12,34 @@ permissions:
   contents: read
 
 jobs:
+  secretos:
+    name: Secretos · gitleaks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dependencias:
+    name: Dependencias · npm audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: npm audit · backend
+        working-directory: backend
+        run: npm audit --omit=dev --audit-level=high
+      - name: npm audit · frontend
+        working-directory: frontend
+        run: npm audit --omit=dev --audit-level=high
+
   backend:
     name: Backend · esquema y Jest
     runs-on: ubuntu-latest
