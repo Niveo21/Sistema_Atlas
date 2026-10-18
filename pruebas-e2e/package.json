@@ -1,0 +1,16 @@
+{
+  "name": "atlas-pruebas-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pruebas de punta a punta (Playwright) y accesibilidad (axe-core) de la interfaz de Atlas",
+  "type": "module",
+  "scripts": {
+    "seed": "node seed-demo.mjs",
+    "e2e": "node e2e.mjs",
+    "a11y": "node a11y.mjs"
+  },
+  "dependencies": {
+    "axe-core": "4.10.3",
+    "playwright-core": "1.55.0"
+  }
+}

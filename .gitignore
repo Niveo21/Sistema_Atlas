@@ -1,7 +1,8 @@
 node_modules/
-.env
 dist/
-build/
+.env
 *.log
-.DS_Store
-Thumbs.db
+coverage/
+playwright-report/
+test-results/
+shots/
