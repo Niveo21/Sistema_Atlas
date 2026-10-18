@@ -62,7 +62,8 @@ jobs:
         env:
           CORS_ORIGIN: http://localhost:3000
         run: |
-          echo "JWT_SECRET=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          # GITHUB_ENV solo afecta a los pasos siguientes; el proceso necesita la variable ya en este paso.
+          export JWT_SECRET=$(openssl rand -hex 32)
           nohup node src/server.js > "$RUNNER_TEMP/backend.log" 2>&1 &
       - name: Esperar al backend
         run: |
