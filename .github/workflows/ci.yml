@@ -42,6 +42,7 @@ jobs:
 
   backend:
     name: Backend · esquema y Jest
+    needs: [secretos, dependencias]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     services:
@@ -91,6 +92,7 @@ jobs:
 
   frontend:
     name: Frontend · build
+    needs: [secretos, dependencias]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -109,7 +111,7 @@ jobs:
 
   e2e:
     name: E2E y accesibilidad
-    needs: [backend, frontend]
+    needs: [secretos, dependencias, backend, frontend]
     runs-on: ubuntu-latest
     timeout-minutes: 25
     services:
