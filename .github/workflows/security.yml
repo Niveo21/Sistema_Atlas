@@ -1,0 +1,86 @@
+# Seguridad de Atlas: se ejecuta cada lunes y a demanda.
+# No bloquea los push: revisa dependencias y hace un escaneo ZAP baseline.
+# El escaneo activo de POST, PUT y DELETE con sesión se hizo a mano (ver Anexo 5 del informe).
+name: Seguridad
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dependencias:
+    name: Dependencias de producción
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: npm audit · backend
+        working-directory: backend
+        run: npm audit --omit=dev --audit-level=high
+      - name: npm audit · frontend
+        working-directory: frontend
+        run: npm audit --omit=dev --audit-level=high
+
+  zap-baseline:
+    name: OWASP ZAP baseline
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: atlas
+          POSTGRES_PASSWORD: ci_only_password
+          POSTGRES_DB: atlas_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U atlas"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgres://atlas:ci_only_password@localhost:5432/atlas_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Backend · dependencias y esquema
+        working-directory: backend
+        run: |
+          npm ci
+          npm run db:migrate
+      - name: Backend · JWT_SECRET de CI y arranque en el puerto 4000
+        working-directory: backend
+        env:
+          CORS_ORIGIN: http://localhost:3000
+        run: |
+          echo "JWT_SECRET=$(openssl rand -hex 32)" >> "$GITHUB_ENV"
+          nohup node src/server.js > "$RUNNER_TEMP/backend.log" 2>&1 &
+      - name: Esperar al backend
+        run: |
+          for i in $(seq 1 30); do
+            if curl -s -o /dev/null http://localhost:4000; then exit 0; fi
+            sleep 2
+          done
+          cat "$RUNNER_TEMP/backend.log"; exit 1
+      - name: Escaneo ZAP baseline
+        run: |
+          mkdir -p "$RUNNER_TEMP/zap" && chmod 777 "$RUNNER_TEMP/zap"
+          docker run --rm --network host -v "$RUNNER_TEMP/zap:/zap/wrk:rw" \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py -t http://localhost:4000 -r zap-baseline.html -I
+      - name: Subir reporte ZAP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-baseline
+          path: ${{ runner.temp }}/zap/zap-baseline.html
+          if-no-files-found: ignore
