@@ -30,6 +30,8 @@ function validarArchivo(file) {
 // Nombre original sin rutas ni caracteres de control.
 function nombreSeguro(nombre) {
   const base = path.basename(String(nombre || 'archivo'));
+  // Intencional: se quitan los caracteres de control, incluido el nulo (\u0000).
+  // eslint-disable-next-line no-control-regex
   return base.replace(/[\u0000-\u001f\u007f]/g, '').slice(0, 255) || 'archivo';
 }
 

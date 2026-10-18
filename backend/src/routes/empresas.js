@@ -3,7 +3,7 @@ const { pool, withTransaction } = require('../db');
 const { authenticate } = require('../middleware/authenticate');
 const { requireEmpresaRole } = require('../middleware/empresaAccess');
 const { registrarAuditoria } = require('../utils/audit');
-const { requireString, requireEmail, positiveInt } = require('../utils/validation');
+const { requireString, requireEmail } = require('../utils/validation');
 const { badRequest, notFound } = require('../utils/errors');
 
 const router = express.Router();

@@ -72,12 +72,18 @@ jobs:
       - name: Instalar dependencias
         working-directory: backend
         run: npm ci
+      - name: Lint (ESLint)
+        working-directory: backend
+        run: npm run lint
       - name: Aplicar esquema
         working-directory: backend
         run: npm run db:migrate
       - name: Pruebas Jest con cobertura
         working-directory: backend
         run: npm test -- --coverage
+      - name: Mutación (Stryker sobre validación y errores)
+        working-directory: backend
+        run: npm run test:mutacion
       - name: Análisis SonarCloud
         uses: SonarSource/sonarqube-scan-action@v7
         env:

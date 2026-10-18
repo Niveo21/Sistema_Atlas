@@ -5,4 +5,8 @@ dist/
 coverage/
 playwright-report/
 test-results/
+shots/reports/
+.stryker-tmp/
 shots/
+reports/
+.stryker-tmp/
