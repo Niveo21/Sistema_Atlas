@@ -1,1001 +1,139 @@
-﻿
+
 > atlas-backend@0.1.0 test
 > jest --runInBand --forceExit --verbose --coverage
 
-npm.cmd : FAIL tests/casos_ep.test.js (7.235 s)
-En línea: 1 Carácter: 1
-+ npm.cmd test -- --verbose --coverage 2>&1 | Out-File -Encoding utf8 . ...
-+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (FAIL tests/casos_ep.test.js (7.235 s):String) [], RemoteException
-    + FullyQualifiedErrorId : NativeCommandError
- 
-  CP-01 Autenticaci├│n y sesi├│n (RF-1.1, RF-1.2, NFR-SEG-2, NFR-SEG-9)
-    ├ù el login v├ílido entrega un JWT HS256 con expiraci├│n de 15 minutos (1 ms)
-    ├ù credenciales incorrectas y usuario inexistente devuelven el mismo mensaje gen├®rico
-    ├ù ninguna respuesta de login expone la contrase├▒a ni su hash
+PASS tests/casos_ep.test.js
+  CP-01 Autenticación y sesión (RF-1.1, RF-1.2, NFR-SEG-2, NFR-SEG-9)
+    √ el login válido entrega un JWT HS256 con expiración de 15 minutos (10 ms)
+    √ credenciales incorrectas y usuario inexistente devuelven el mismo mensaje genérico (17 ms)
+    √ ninguna respuesta de login expone la contraseña ni su hash (11 ms)
   CP-02 Permisos del rol Editor (RF-3.2, RB-4, NFR-SEG-4)
-    ├ù el editor no puede crear contratos ni eliminar clientes (403) y no cambia la base
-  CP-03 Validaci├│n de entradas (NFR-SEG-5, RF-4.3)
-    ├ù una inyecci├│n SQL en el filtro no altera la tabla de clientes
-    ├ù un script almacenado se guarda como texto y la respuesta no emite cookies
-    ├ù un error de JSON mal formado no revela trazas ni detalles t├®cnicos (1 ms)
-  CP-08 Auditor├¡a de acciones cr├¡ticas (RF-6.1, NFR-SEG-6)
-    ├ù crear, editar y eliminar un cliente generan un evento cada uno
-    ├ù la auditor├¡a no almacena contrase├▒as en texto plano
-  CP-09 Estado del contrato y valores l├¡mite (RF-5.1, RF-5.4, RB-3)
-    ├ù el t├®rmino a 30 d├¡as es "vence" y a 31 d├¡as es "activo" (l├¡mite) (1 ms)
-    ├ù un contrato cuyo t├®rmino es hoy figura como "vence" y uno vencido ayer como "expirado"
-    ├ù un contrato con t├®rmino anterior al inicio se rechaza (400) y no se guarda
-    ├ù un contrato no puede asociarse a un cliente de otra empresa
-  CP-10 Registro y creaci├│n de empresa (RF-2.1, RF-2.2, RF-2.3, RB-1, pol├¡tica de contrase├▒as)
-    ├ù una contrase├▒a de 11 caracteres se rechaza (400)
-    ├ù un correo ya registrado se rechaza (409), seg├║n la regla de correo ├║nico (D-5)
-    ├ù quien crea la empresa queda como administrador (RF-2.3)
-  CP-14 Documentos (RF-5.2, RF-5.3, restricci├│n de almacenamiento)
-    ├ù un archivo cuyo contenido no corresponde a su extensi├│n se rechaza
-    ├ù la ruta interna del archivo no aparece en la respuesta ni en la lista
+    √ el editor no puede crear contratos ni eliminar clientes (403) y no cambia la base (22 ms)
+  CP-03 Validación de entradas (NFR-SEG-5, RF-4.3)
+    √ una inyección SQL en el filtro no altera la tabla de clientes (23 ms)
+    √ un script almacenado se guarda como texto y la respuesta no emite cookies (13 ms)
+    √ un error de JSON mal formado no revela trazas ni detalles técnicos (11 ms)
+  CP-08 Auditoría de acciones críticas (RF-6.1, NFR-SEG-6)
+    √ crear, editar y eliminar un cliente generan un evento cada uno (36 ms)
+    √ la auditoría no almacena contraseñas en texto plano (2 ms)
+  CP-09 Estado del contrato y valores límite (RF-5.1, RF-5.4, RB-3)
+    √ el término a 30 días es "vence" y a 31 días es "activo" (límite) (39 ms)
+    √ un contrato cuyo término es hoy figura como "vence" y uno vencido ayer como "expirado" (35 ms)
+    √ un contrato con término anterior al inicio se rechaza (400) y no se guarda (10 ms)
+    √ un contrato no puede asociarse a un cliente de otra empresa (8 ms)
+  CP-10 Registro y creación de empresa (RF-2.1, RF-2.2, RF-2.3, RB-1, política de contraseñas)
+    √ una contraseña de 11 caracteres se rechaza (400) (3 ms)
+    √ un correo ya registrado se rechaza (409), según la regla de correo único (D-5) (7 ms)
+    √ quien crea la empresa queda como administrador (RF-2.3) (7 ms)
+  CP-14 Documentos (RF-5.2, RF-5.3, restricción de almacenamiento)
+    √ un archivo cuyo contenido no corresponde a su extensión se rechaza (8 ms)
+    √ la ruta interna del archivo no aparece en la respuesta ni en la lista (9 ms)
   CP-15 Credenciales almacenadas (NFR-SEG-2)
-    ├ù las contrase├▒as se guardan como hash bcrypt y no en texto plano
+    √ las contraseñas se guardan como hash bcrypt y no en texto plano (2 ms)
   CP-17 Aislamiento entre empresas (RB-2, NFR-SEG-4)
-    ├ù el administrador de B no puede leer, modificar ni borrar datos de A (404)
+    √ el administrador de B no puede leer, modificar ni borrar datos de A (404) (47 ms)
 
-  ÔùÅ CP-01 Autenticaci├│n y sesi├│n (RF-1.1, RF-1.2, NFR-SEG-2, NFR-SEG-9) ÔÇ║ el login v├ílido entrega un JWT HS256 
-con expiraci├│n de 15 minutos
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-01 Autenticaci├│n y sesi├│n (RF-1.1, RF-1.2, NFR-SEG-2, NFR-SEG-9) ÔÇ║ credenciales incorrectas y usuario 
-inexistente devuelven el mismo mensaje gen├®rico
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-01 Autenticaci├│n y sesi├│n (RF-1.1, RF-1.2, NFR-SEG-2, NFR-SEG-9) ÔÇ║ ninguna respuesta de login expone la 
-contrase├▒a ni su hash
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-02 Permisos del rol Editor (RF-3.2, RB-4, NFR-SEG-4) ÔÇ║ el editor no puede crear contratos ni eliminar 
-clientes (403) y no cambia la base
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-03 Validaci├│n de entradas (NFR-SEG-5, RF-4.3) ÔÇ║ una inyecci├│n SQL en el filtro no altera la tabla de 
-clientes
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-03 Validaci├│n de entradas (NFR-SEG-5, RF-4.3) ÔÇ║ un script almacenado se guarda como texto y la respuesta 
-no emite cookies
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-03 Validaci├│n de entradas (NFR-SEG-5, RF-4.3) ÔÇ║ un error de JSON mal formado no revela trazas ni detalles 
-t├®cnicos
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-08 Auditor├¡a de acciones cr├¡ticas (RF-6.1, NFR-SEG-6) ÔÇ║ crear, editar y eliminar un cliente generan un 
-evento cada uno
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-08 Auditor├¡a de acciones cr├¡ticas (RF-6.1, NFR-SEG-6) ÔÇ║ la auditor├¡a no almacena contrase├▒as en texto 
-plano
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-09 Estado del contrato y valores l├¡mite (RF-5.1, RF-5.4, RB-3) ÔÇ║ el t├®rmino a 30 d├¡as es "vence" y a 31 
-d├¡as es "activo" (l├¡mite)
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-09 Estado del contrato y valores l├¡mite (RF-5.1, RF-5.4, RB-3) ÔÇ║ un contrato cuyo t├®rmino es hoy figura 
-como "vence" y uno vencido ayer como "expirado"
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-09 Estado del contrato y valores l├¡mite (RF-5.1, RF-5.4, RB-3) ÔÇ║ un contrato con t├®rmino anterior al 
-inicio se rechaza (400) y no se guarda
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-09 Estado del contrato y valores l├¡mite (RF-5.1, RF-5.4, RB-3) ÔÇ║ un contrato no puede asociarse a un 
-cliente de otra empresa
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-10 Registro y creaci├│n de empresa (RF-2.1, RF-2.2, RF-2.3, RB-1, pol├¡tica de contrase├▒as) ÔÇ║ una 
-contrase├▒a de 11 caracteres se rechaza (400)
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-10 Registro y creaci├│n de empresa (RF-2.1, RF-2.2, RF-2.3, RB-1, pol├¡tica de contrase├▒as) ÔÇ║ un correo ya 
-registrado se rechaza (409), seg├║n la regla de correo ├║nico (D-5)
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-10 Registro y creaci├│n de empresa (RF-2.1, RF-2.2, RF-2.3, RB-1, pol├¡tica de contrase├▒as) ÔÇ║ quien crea 
-la empresa queda como administrador (RF-2.3)
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-14 Documentos (RF-5.2, RF-5.3, restricci├│n de almacenamiento) ÔÇ║ un archivo cuyo contenido no corresponde a 
-su extensi├│n se rechaza
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-14 Documentos (RF-5.2, RF-5.3, restricci├│n de almacenamiento) ÔÇ║ la ruta interna del archivo no aparece en 
-la respuesta ni en la lista
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-15 Credenciales almacenadas (NFR-SEG-2) ÔÇ║ las contrase├▒as se guardan como hash bcrypt y no en texto plano
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-  ÔùÅ CP-17 Aislamiento entre empresas (RB-2, NFR-SEG-4) ÔÇ║ el administrador de B no puede leer, modificar ni borrar 
-datos de A (404)
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 30 |[39m
-     [90m 31 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 32 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 33 |[39m   adminA [33m=[39m [36mawait[39m registrar([32m'ep_admin_a'[39m)[33m;[39m
-     [90m 34 |[39m   editorA [33m=[39m [36mawait[39m registrar([32m'ep_editor_a'[39m)[33m;[39m
-     [90m 35 |[39m   adminB [33m=[39m [36mawait[39m registrar([32m'ep_admin_b'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/casos_ep.test.js:32:3)
-
-FAIL tests/documentos.test.js
+PASS tests/documentos.test.js
   Subida de documentos (RF-5.2, RF-5.3)
-    ├ù el administrador sube un PDF v├ílido y la ruta interna no se expone (1 ms)
-    ├ù rechaza un archivo cuyo contenido no corresponde a su tipo
-    ├ù rechaza tipos de archivo no permitidos
-    ├ù rechaza archivos que superan el tama├▒o m├íximo (413)
-    ├ù el editor no puede subir documentos (403)
+    √ el administrador sube un PDF válido y la ruta interna no se expone (17 ms)
+    √ rechaza un archivo cuyo contenido no corresponde a su tipo (7 ms)
+    √ rechaza tipos de archivo no permitidos (7 ms)
+    √ rechaza archivos que superan el tamaño máximo (413) (8 ms)
+    √ el editor no puede subir documentos (403) (8 ms)
   Descarga y listado (RB-2, RB-4)
-    ├ù el editor lista y descarga el documento con su contenido original
-    ├ù un usuario fuera de la empresa no accede al documento (404)
+    √ el editor lista y descarga el documento con su contenido original (26 ms)
+    √ un usuario fuera de la empresa no accede al documento (404) (7 ms)
   Enlaces para compartir (RF-5.5)
-    ├ù el administrador crea un enlace y cualquiera con el enlace descarga el documento
-    ├ù en la base solo se guarda el hash del token
-    ├ù un token con formato inv├ílido o inexistente responde 404 (1 ms)
-    ├ù un enlace revocado deja de funcionar
-    ├ù un enlace vencido deja de funcionar
-    ├ù el editor no puede crear enlaces (403) ni vigencias mayores al m├íximo (400)
-  Auditor├¡a de documentos (RF-6.1)
-    ├ù la subida, la descarga y el enlace quedan registrados
+    √ el administrador crea un enlace y cualquiera con el enlace descarga el documento (30 ms)
+    √ en la base solo se guarda el hash del token (2 ms)
+    √ un token con formato inválido o inexistente responde 404 (8 ms)
+    √ un enlace revocado deja de funcionar (16 ms)
+    √ un enlace vencido deja de funcionar (20 ms)
+    √ el editor no puede crear enlaces (403) ni vigencias mayores al máximo (400) (15 ms)
+  Auditoría de documentos (RF-6.1)
+    √ la subida, la descarga y el enlace quedan registrados (2 ms)
 
-  ÔùÅ Subida de documentos (RF-5.2, RF-5.3) ÔÇ║ el administrador sube un PDF v├ílido y la ruta interna no se expone
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Subida de documentos (RF-5.2, RF-5.3) ÔÇ║ rechaza un archivo cuyo contenido no corresponde a su tipo
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Subida de documentos (RF-5.2, RF-5.3) ÔÇ║ rechaza tipos de archivo no permitidos
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Subida de documentos (RF-5.2, RF-5.3) ÔÇ║ rechaza archivos que superan el tama├▒o m├íximo (413)
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Subida de documentos (RF-5.2, RF-5.3) ÔÇ║ el editor no puede subir documentos (403)
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Descarga y listado (RB-2, RB-4) ÔÇ║ el editor lista y descarga el documento con su contenido original
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Descarga y listado (RB-2, RB-4) ÔÇ║ un usuario fuera de la empresa no accede al documento (404)
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Enlaces para compartir (RF-5.5) ÔÇ║ el administrador crea un enlace y cualquiera con el enlace descarga el 
-documento
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Enlaces para compartir (RF-5.5) ÔÇ║ en la base solo se guarda el hash del token
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Enlaces para compartir (RF-5.5) ÔÇ║ un token con formato inv├ílido o inexistente responde 404
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Enlaces para compartir (RF-5.5) ÔÇ║ un enlace revocado deja de funcionar
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Enlaces para compartir (RF-5.5) ÔÇ║ un enlace vencido deja de funcionar
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Enlaces para compartir (RF-5.5) ÔÇ║ el editor no puede crear enlaces (403) ni vigencias mayores al m├íximo (400)
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-  ÔùÅ Auditor├¡a de documentos (RF-6.1) ÔÇ║ la subida, la descarga y el enlace quedan registrados
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 24 |[39m
-     [90m 25 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 26 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 27 |[39m   admin [33m=[39m [36mawait[39m registrar([32m'admin_docs'[39m)[33m;[39m
-     [90m 28 |[39m   editor [33m=[39m [36mawait[39m registrar([32m'editor_docs'[39m)[33m;[39m
-     [90m 29 |[39m   externo [33m=[39m [36mawait[39m registrar([32m'externo_docs'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/documentos.test.js:26:3)
-
-FAIL tests/api.test.js
-  Autenticaci├│n (RF-1, RF-2)
-    ├ù rechaza contrase├▒as que no cumplen la pol├¡tica (1 ms)
-    ├ù rechaza un nombre de usuario duplicado con 409
-    ├ù rechaza credenciales inv├ílidas con 401
-    ├ù exige token en rutas protegidas
+PASS tests/api.test.js
+  Autenticación (RF-1, RF-2)
+    √ rechaza contraseñas que no cumplen la política (4 ms)
+    √ rechaza un nombre de usuario duplicado con 409 (7 ms)
+    √ rechaza credenciales inválidas con 401 (16 ms)
+    √ exige token en rutas protegidas (3 ms)
   Empresas y roles (RF-2.2, RF-2.3, RF-3)
-    ├ù quien crea la empresa queda como administrador
-    ├ù el administrador asigna rol editor a un usuario registrado
-    ├ù un usuario fuera de la empresa no la ve (404)
+    √ quien crea la empresa queda como administrador (18 ms)
+    √ el administrador asigna rol editor a un usuario registrado (11 ms)
+    √ un usuario fuera de la empresa no la ve (404) (7 ms)
   Clientes (RF-4) y control de acceso por rol (RB-4, RB-5)
-    ├ù el administrador crea un cliente
-    ├ù el editor puede listar clientes pero no crearlos (403)
-    ├ù la eliminaci├│n exige confirmaci├│n expl├¡cita
-    ├ù la eliminaci├│n con confirmaci├│n es l├│gica y oculta el cliente
+    √ el administrador crea un cliente (11 ms)
+    √ el editor puede listar clientes pero no crearlos (403) (25 ms)
+    √ la eliminación exige confirmación explícita (7 ms)
+    √ la eliminación con confirmación es lógica y oculta el cliente (18 ms)
   Contratos (RF-5.1, RF-5.4, RB-3)
-    ├ù rechaza fechas con t├®rmino anterior al inicio
-    ├ù calcula el estado del contrato a partir de las fechas
-  Cierre de sesi├│n (RF-1.2)
-    ├ù el token deja de funcionar despu├®s del logout
-  Auditor├¡a (RF-6.1)
-    ├ù las acciones cr├¡ticas quedan registradas
-
-  ÔùÅ Autenticaci├│n (RF-1, RF-2) ÔÇ║ rechaza contrase├▒as que no cumplen la pol├¡tica
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Autenticaci├│n (RF-1, RF-2) ÔÇ║ rechaza un nombre de usuario duplicado con 409
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Autenticaci├│n (RF-1, RF-2) ÔÇ║ rechaza credenciales inv├ílidas con 401
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Autenticaci├│n (RF-1, RF-2) ÔÇ║ exige token en rutas protegidas
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Empresas y roles (RF-2.2, RF-2.3, RF-3) ÔÇ║ quien crea la empresa queda como administrador
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Empresas y roles (RF-2.2, RF-2.3, RF-3) ÔÇ║ el administrador asigna rol editor a un usuario registrado
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Empresas y roles (RF-2.2, RF-2.3, RF-3) ÔÇ║ un usuario fuera de la empresa no la ve (404)
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Clientes (RF-4) y control de acceso por rol (RB-4, RB-5) ÔÇ║ el administrador crea un cliente
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Clientes (RF-4) y control de acceso por rol (RB-4, RB-5) ÔÇ║ el editor puede listar clientes pero no crearlos 
-(403)
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Clientes (RF-4) y control de acceso por rol (RB-4, RB-5) ÔÇ║ la eliminaci├│n exige confirmaci├│n expl├¡cita
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Clientes (RF-4) y control de acceso por rol (RB-4, RB-5) ÔÇ║ la eliminaci├│n con confirmaci├│n es l├│gica y 
-oculta el cliente
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Contratos (RF-5.1, RF-5.4, RB-3) ÔÇ║ rechaza fechas con t├®rmino anterior al inicio
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Contratos (RF-5.1, RF-5.4, RB-3) ÔÇ║ calcula el estado del contrato a partir de las fechas
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Cierre de sesi├│n (RF-1.2) ÔÇ║ el token deja de funcionar despu├®s del logout
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
-
-  ÔùÅ Auditor├¡a (RF-6.1) ÔÇ║ las acciones cr├¡ticas quedan registradas
-
-    error: password authentication failed for user "atlas"
-
-    [0m [90m 28 |[39m
-     [90m 29 |[39m beforeAll([36masync[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 30 |[39m   [36mawait[39m pool[33m.[39mquery([32m'TRUNCATE auditoria, 
-token_revocado, enlace_compartido, documento, contrato, cliente, empresa_usuarios, empresa, usuario RESTART IDENTITY 
-CASCADE'[39m)[33m;[39m
-     [90m    |[39m   [31m[1m^[22m[39m
-     [90m 31 |[39m   [36mawait[39m registrar([32m'admin_test'[39m)[33m;[39m
-     [90m 32 |[39m   [36mawait[39m registrar([32m'editor_test'[39m)[33m;[39m
-     [90m 33 |[39m   [36mawait[39m registrar([32m'externo_test'[39m)[33m;[39m[0m
-
-      at node_modules/pg-pool/index.js:45:11
-      at Object.<anonymous> (tests/api.test.js:30:3)
+    √ rechaza fechas con término anterior al inicio (9 ms)
+    √ calcula el estado del contrato a partir de las fechas (35 ms)
+  Cierre de sesión (RF-1.2)
+    √ el token deja de funcionar después del logout (26 ms)
+  Auditoría (RF-6.1)
+    √ las acciones críticas quedan registradas (2 ms)
 
 PASS tests/validation.test.js
-  validatePassword (pol├¡tica ERS 2.4)
-    ÔêÜ acepta una contrase├▒a que cumple todas las reglas (1 ms)
-    ÔêÜ acepta exactamente 12 caracteres
-    ÔêÜ rechaza 11 caracteres con el mensaje de longitud (1 ms)
-    ÔêÜ exige una may├║scula (1 ms)
-    ÔêÜ exige una min├║scula
-    ÔêÜ exige un n├║mero (1 ms)
-    ÔêÜ exige un s├¡mbolo
-    ÔêÜ informa todas las reglas que faltan a la vez
-    ÔêÜ rechaza un valor que no es texto (1 ms)
+  validatePassword (política ERS 2.4)
+    √ acepta una contraseña que cumple todas las reglas (1 ms)
+    √ acepta exactamente 12 caracteres
+    √ rechaza 11 caracteres con el mensaje de longitud
+    √ exige una mayúscula
+    √ exige una minúscula
+    √ exige un número
+    √ exige un símbolo
+    √ informa todas las reglas que faltan a la vez (1 ms)
+    √ rechaza un valor que no es texto
   requireString
-    ÔêÜ lanza error si el campo falta, es null o est├í vac├¡o (10 ms)
-    ÔêÜ devuelve null si el campo es opcional y falta
-    ÔêÜ recorta los espacios de los extremos (1 ms)
-    ÔêÜ acepta un texto de exactamente max caracteres
-    ÔêÜ rechaza un texto m├ís largo que max
-    ÔêÜ rechaza un valor que no es texto
+    √ lanza error si el campo falta, es null o está vacío (15 ms)
+    √ devuelve null si el campo es opcional y falta
+    √ recorta los espacios de los extremos
+    √ acepta un texto de exactamente max caracteres (1 ms)
+    √ rechaza un texto más largo que max
+    √ rechaza un valor que no es texto (1 ms)
   requireEmail
-    ÔêÜ normaliza el correo a min├║sculas (1 ms)
-    ÔêÜ rechaza un correo sin arroba
-    ÔêÜ rechaza un correo con espacios (1 ms)
-    ÔêÜ rechaza texto extra despu├®s del dominio
-    ÔêÜ rechaza un correo de m├ís de 254 caracteres (1 ms)
+    √ normaliza el correo a minúsculas
+    √ rechaza un correo sin arroba
+    √ rechaza un correo con espacios
+    √ rechaza texto extra después del dominio (1 ms)
+    √ rechaza un correo de más de 254 caracteres
   positiveInt
-    ÔêÜ acepta enteros positivos, tambi├®n como texto (1 ms)
-    ÔêÜ rechaza cero, negativos, decimales y texto no num├®rico (1 ms)
+    √ acepta enteros positivos, también como texto (5 ms)
+    √ rechaza cero, negativos, decimales y texto no numérico (2 ms)
   errors
-    ÔêÜ cada constructor usa su c├│digo HTTP
-    ÔêÜ usa mensajes por defecto cuando no se entrega uno (1 ms)
-    ÔêÜ conserva los detalles entregados
+    √ cada constructor usa su código HTTP
+    √ usa mensajes por defecto cuando no se entrega uno
+    √ conserva los detalles entregados (1 ms)
 
--------------------|---------|----------|---------|---------|----------------------------------------------------
-File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                  
--------------------|---------|----------|---------|---------|----------------------------------------------------
-All files          |   40.89 |       30 |   21.66 |   42.34 |                                                    
- src               |   66.07 |    38.46 |      25 |   68.51 |                                                    
-  app.js           |   77.14 |       20 |   33.33 |   81.81 | 36-43                                              
-  config.js        |      75 |       50 |     100 |      75 | 6,10                                               
-  db.js            |   30.76 |      100 |       0 |   30.76 | 8-18                                               
- src/middleware    |   51.42 |    28.57 |   66.66 |   58.06 |                                                    
-  authenticate.js  |   68.42 |       50 |     100 |   76.47 | 20-24                                              
-  empresaAccess.js |   31.25 |        0 |      50 |   35.71 | 10-24                                              
- src/routes        |   27.39 |        0 |       0 |   29.73 |                                                    
-  auth.js          |   34.04 |        0 |       0 |   35.55 | 19-37,43-65,71-81                                  
-  clientes.js      |   24.59 |        0 |       0 |   27.27 | 17-28,34-54,60-73,79-99,106-122                    
-  contratos.js     |   35.89 |        0 |       0 |   38.88 | 25-29,34-47,53-77                                  
-  documentos.js    |   21.78 |        0 |       0 |   23.91 | 21-54,67-80,93-125,136-145,157-182,193-211,221-244 
-  empresas.js      |   29.54 |        0 |       0 |    31.7 | 15-37,43-52,59-80                                  
- src/utils         |   66.66 |    62.71 |   47.61 |   65.62 |                                                    
-  archivos.js      |      25 |        0 |       0 |      30 | 12-57                                              
-  audit.js         |      50 |        0 |       0 |      50 | 4                                                  
-  errors.js        |     100 |      100 |     100 |     100 |                                                    
-  validation.js    |     100 |      100 |     100 |     100 |                                                    
--------------------|---------|----------|---------|---------|----------------------------------------------------
-Test Suites: 3 failed, 1 passed, 4 total
-Tests:       49 failed, 25 passed, 74 total
+-------------------|---------|----------|---------|---------|---------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s   
+-------------------|---------|----------|---------|---------|---------------------
+All files          |   90.57 |    76.47 |   86.66 |   93.77 |                     
+ src               |   83.92 |    53.84 |      50 |   87.03 |                     
+  app.js           |   85.71 |       60 |   33.33 |    90.9 | 37,42-43            
+  config.js        |      75 |       50 |     100 |      75 | 6,10                
+  db.js            |   84.61 |      100 |     100 |   84.61 | 15-16               
+ src/middleware    |   97.14 |      100 |     100 |   96.77 |                     
+  authenticate.js  |   94.73 |      100 |     100 |   94.11 | 17                  
+  empresaAccess.js |     100 |      100 |     100 |     100 |                     
+ src/routes        |   90.41 |    73.23 |   93.75 |   94.05 |                     
+  auth.js          |   95.74 |    88.88 |     100 |   95.55 | 34,81               
+  clientes.js      |   90.16 |    80.76 |     100 |   94.54 | 54,73,99            
+  contratos.js     |   94.87 |     87.5 |     100 |   97.22 | 47                  
+  documentos.js    |    89.1 |    63.63 |   85.71 |   93.47 | 26,53-54,80,145,211 
+  empresas.js      |   84.09 |    33.33 |     100 |   90.24 | 36-37,52,80         
+ src/utils         |   92.85 |    84.74 |   80.95 |   96.87 |                     
+  archivos.js      |   83.33 |    53.33 |      60 |   93.33 | 17-18               
+  audit.js         |     100 |    71.42 |     100 |     100 | 3                   
+  errors.js        |     100 |      100 |     100 |     100 |                     
+  validation.js    |     100 |      100 |     100 |     100 |                     
+-------------------|---------|----------|---------|---------|---------------------
+Test Suites: 4 passed, 4 total
+Tests:       74 passed, 74 total
 Snapshots:   0 total
-Time:        10.072 s
+Time:        4.007 s, estimated 9 s
 Ran all test suites.
-Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after 
-all tests finished?
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?
